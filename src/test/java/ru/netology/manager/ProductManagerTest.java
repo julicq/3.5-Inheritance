@@ -2,10 +2,6 @@ package ru.netology.manager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
@@ -13,11 +9,9 @@ import ru.netology.repository.ProductRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
+
 class ProductManagerTest {
-    @Mock
-    private ProductRepository repository;
-    @InjectMocks
+    private ProductRepository repository = new ProductRepository();
     private ProductManager manager = new ProductManager(repository);
     private Book aliceInWonderland = new Book(1, "Alice In Wonderland", 1000, "Lewis Carrol");
     private Book wizardOfOz = new Book(2, "Wizard Of Oz", 1200, "Frank L Baum");
@@ -26,10 +20,19 @@ class ProductManagerTest {
 
     @BeforeEach
     public void setUp() {
-        repository.save(aliceInWonderland);
-        repository.save(wizardOfOz);
-        repository.save(iPhone11);
-        repository.save(galaxy20);
+        manager.add(aliceInWonderland);
+        manager.add(wizardOfOz);
+        manager.add(iPhone11);
+    }
+
+
+    @Test
+    public void shouldSaveOneItem() {
+        manager.add(galaxy20);
+
+        Product[] expected = new Product[]{aliceInWonderland,wizardOfOz,iPhone11,galaxy20};
+        Product[] actual = repository.findAll();
+        assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -38,7 +41,7 @@ class ProductManagerTest {
 
         Product[] expected = new Product[] {aliceInWonderland};
         Product[] actual = repository.findAll();
-        assertEquals(expected, actual);
+        assertArrayEquals(expected, actual);
 
     }
 }
