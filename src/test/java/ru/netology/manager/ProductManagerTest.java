@@ -21,26 +21,36 @@ class ProductManagerTest {
     @BeforeEach
     public void setUp() {
         manager.add(aliceInWonderland);
-        manager.add(wizardOfOz);
+        manager.add(aliceInWonderland);
         manager.add(iPhone11);
     }
 
 
     @Test
     public void shouldSaveOneItem() {
-        manager.add(galaxy20);
+        manager.add(wizardOfOz);
 
-        Product[] expected = new Product[]{aliceInWonderland,wizardOfOz,iPhone11,galaxy20};
+        Product[] expected = new Product[]{aliceInWonderland,aliceInWonderland,iPhone11,wizardOfOz};
         Product[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    void searchBy() {
+    public void shouldFindOneBook() {
         manager.searchBy("alice");
 
         Product[] expected = new Product[] {aliceInWonderland};
         Product[] actual = repository.findAll();
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void shouldFindOneSmartphone() {
+        manager.searchBy("iPhone11");
+
+        Product[] expected = new Product[] {iPhone11};
+        Product[] actual = manager.searchBy("iPhone11");
         assertArrayEquals(expected, actual);
 
     }
