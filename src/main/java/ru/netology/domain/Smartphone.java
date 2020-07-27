@@ -7,6 +7,7 @@ public class Smartphone extends Product {
     private String vendor;
 
     public Smartphone() {
+        super();
     }
 
     public Smartphone(int id, String name, int price, String vendor) {
@@ -46,5 +47,12 @@ public class Smartphone extends Product {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), name, vendor);
+    }
+
+    public boolean matches(String search) {
+        if (super.matches(search)) {
+            return true;
+        }
+        return getVendor().equalsIgnoreCase(search);
     }
 }
