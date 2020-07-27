@@ -58,7 +58,7 @@ class ProductManagerTest {
     }
 
     @Test
-    public void shouldFindOneTShirt() {
+    public void shouldNotFindOneTShirt() {
         manager.searchBy("tShirt");
 
         Product[] expected = new Product[] {};
