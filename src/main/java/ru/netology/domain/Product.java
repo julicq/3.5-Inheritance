@@ -1,4 +1,5 @@
 package ru.netology.domain;
+import ru.netology.repository.ProductRepository;
 
 import java.util.Objects;
 
@@ -6,6 +7,7 @@ public class Product {
     private int id;
     private String name;
     private int price;
+    private ProductRepository repository;
 
     public Product() {
     }
@@ -56,4 +58,18 @@ public class Product {
     public int hashCode() {
         return Objects.hash(id, name, price);
     }
+
+    public boolean matches(String search) {
+        Product product = new Product();
+        Book book = (Book) product;
+            if (book.getName().equalsIgnoreCase(search)) {
+                return true;
+            }
+        Smartphone smartphone = (Smartphone) product;
+            if (smartphone.getName().equalsIgnoreCase(search)) {
+                return true;
+            }
+        return false;
+    }
+
 }
