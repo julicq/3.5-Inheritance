@@ -35,10 +35,10 @@ class ProductManagerTest {
     }
 
     @Test
-    public void shouldFindOneBook() {
+    public void shouldFindTwoBooks() {
         manager.searchBy("Alice In Wonderland");
 
-        Product[] expected = new Product[] {aliceInWonderland};
+        Product[] expected = new Product[] {aliceInWonderland,aliceInWonderland};
         Product[] actual = manager.searchBy("Alice In Wonderland");
         assertArrayEquals(expected, actual);
 
